@@ -1,0 +1,48 @@
+name: ci
+
+on:
+  pull_request:
+    paths-ignore:
+      - 'docs/**'
+      - '**/*.md'
+
+jobs:
+  test:
+    runs-on: ubuntu-latest
+    steps:
+      - uses: actions/checkout@v4
+      - uses: actions/setup-node@v4
+        with:
+          node-version: 22
+          cache: npm
+      - run: npm ci
+      - run: npm test
+
+  lint:
+    runs-on: ubuntu-latest
+    steps:
+      - uses: actions/checkout@v4
+      - uses: actions/setup-node@v4
+        with:
+          node-version: 22
+          cache: npm
+      - run: npm ci
+      - run: npm run lint
+
+  integration:
+    runs-on: ubuntu-latest
+    steps:
+      - uses: actions/checkout@v4
+      - uses: actions/setup-node@v4
+        with:
+          node-version: 22
+          cache: npm
+      - run: npm ci
+      - name: Check the sandbox service
+        run: curl -fsS --max-time 20 -o /dev/null "$SANDBOX_URL"
+        env:
+          SANDBOX_URL: ${{ vars.SANDBOX_URL || 'https://example.com' }}
+      - name: Run the integration suite
+        run: npm run integration
+        env:
+          INTEGRATION_ROUNDS: ${{ vars.INTEGRATION_ROUNDS || '1' }}

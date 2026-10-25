@@ -1,0 +1,15 @@
+{
+  "name": "cart-math",
+  "version": "0.1.0",
+  "private": true,
+  "type": "module",
+  "scripts": {
+    "test": "vitest run",
+    "lint": "tsc --noEmit",
+    "integration": "node scripts/integration.mjs"
+  },
+  "devDependencies": {
+    "typescript": "5.6.3",
+    "vitest": "3.2.4"
+  }
+}
