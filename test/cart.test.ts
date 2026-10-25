@@ -30,3 +30,15 @@ describe('applyDiscount', () => {
     expect(() => applyDiscount(100, 120)).toThrow(RangeError)
   })
 })
+
+describe('quantity limit', () => {
+  it('rejects a quantity above the limit or below one', () => {
+    expect(() => cartSubtotal([{ sku: 'a', priceCents: 1, quantity: 100 }])).toThrow(RangeError)
+    expect(() => cartSubtotal([{ sku: 'a', priceCents: 1, quantity: 0 }])).toThrow(RangeError)
+    expect(() => cartSubtotal([{ sku: 'a', priceCents: 1, quantity: 1.5 }])).toThrow(RangeError)
+  })
+
+  it('accepts the limit itself', () => {
+    expect(cartSubtotal([{ sku: 'a', priceCents: 1, quantity: 99 }])).toBe(99)
+  })
+})
