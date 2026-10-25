@@ -17,3 +17,9 @@ describe('formatPriceRange', () => {
     expect(formatPriceRange(500, 500)).toBe('$5.00')
   })
 })
+
+describe('formatPriceRange with two prices', () => {
+  it('joins the low and the high price', () => {
+    expect(formatPriceRange(500, 1250)).toBe('$5.00 – $12.50')
+  })
+})
