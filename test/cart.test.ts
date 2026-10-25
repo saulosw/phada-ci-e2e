@@ -1,5 +1,5 @@
 import { describe, expect, it } from 'vitest'
-import { applyDiscount, cartSubtotal } from '../src/cart.js'
+import { applyDiscount, cartSubtotal, itemCount } from '../src/cart.js'
 
 describe('cartSubtotal', () => {
   it('adds price times quantity', () => {
@@ -28,5 +28,11 @@ describe('applyDiscount', () => {
 
   it('rejects a percent outside 0 to 100', () => {
     expect(() => applyDiscount(100, 120)).toThrow(RangeError)
+  })
+})
+
+describe('itemCount', () => {
+  it('adds the quantities', () => {
+    expect(itemCount([{ sku: 'a', priceCents: 1, quantity: 2 }, { sku: 'b', priceCents: 1, quantity: 3 }])).toBe(5)
   })
 })
