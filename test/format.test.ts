@@ -1,5 +1,5 @@
 import { describe, expect, it } from 'vitest'
-import { formatPrice } from '../src/format.js'
+import { formatPrice, formatPriceRange } from '../src/format.js'
 
 describe('formatPrice', () => {
   it('formats cents as dollars', () => {
@@ -9,5 +9,11 @@ describe('formatPrice', () => {
 
   it('keeps the sign of a refund', () => {
     expect(formatPrice(-300)).toBe('-$3.00')
+  })
+})
+
+describe('formatPriceRange', () => {
+  it('shows one price when both ends are equal', () => {
+    expect(formatPriceRange(500, 500)).toBe('$5.00')
   })
 })
